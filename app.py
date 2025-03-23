@@ -3,6 +3,7 @@ from datetime import date
 from datetime import timedelta
 import requests 
 import json
+import os
 
 app = Flask(__name__)
 
@@ -20,9 +21,10 @@ def getSleepScore():
         'start_date': yesterday.__str__(), 
         'end_date': tomorrow.__str__() 
     }
-
+    
+    api_key = os.getenv('API_KEY')
     headers = { 
-        'Authorization': '<redacted>' 
+        'Authorization': f'Bearer {api_key}' 
     }
 
     sleep_response = requests.request('GET', sleep_url, headers=headers, params=params)
